@@ -18,7 +18,7 @@ LeavePlayerFunction = "has leave the Experience",
 JoinPlayerFunction = "has joined the Experience",
 CheatBypass = true,
 COMMANDS = [[local function CmdMore(CmdS)
-return Arg1 == ":"..CmdS
+return Arg1 == prefix..CmdS
 end
 
 function MoreCmd(Message)
@@ -119,7 +119,7 @@ if myverify.COMMANDS ~= nil then
 AddCmd = myverify.COMMANDS
 else
 AddCmd = [[local function CmdMore(CmdS)
-return Arg1 == ":"..CmdS
+return Arg1 == prefix..CmdS
 end
 
 function MoreCmd(Message)
