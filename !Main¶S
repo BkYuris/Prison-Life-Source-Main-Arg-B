@@ -1,0 +1,1475 @@
+local myname = nil
+local myid = nil
+local prefix = nil
+local disable = false
+local System = nil
+local LeaveSystem = nil
+local JoinSystem = nil
+local CBypass = false
+
+local Verify = {
+name = game.Players.LocalPlayer.Name,
+userid = game.Players.LocalPlayer.UserId,
+key = ";",
+disable = false,
+SystemName = "{System}:",
+LeavePlayerFunction = "has leave the Experience",
+JoinPlayerFunction = "has joined the Experience",
+CheatBypass = true
+}
+
+if readfile("IY_"..game.Players.LocalPlayer.UserId..".iy") == "" then
+writefile("IY_"..game.Players.LocalPlayer.UserId..".iy",game:GetService("HttpService"):JSONEncode(Verify))
+end
+
+pcall(function()
+local myverify = game:GetService("HttpService"):JSONDecode(readfile("IY_"..game.Players.LocalPlayer.UserId..".iy"))
+if myverify.name ~= nil then
+myname = myverify.name
+else
+myname = game.Players.LocalPlayer.Name
+end
+if myverify.userid ~= nil then
+myid = myverify.userid
+else
+myid = game.Players.LocalPlayer.UserId
+end
+if myverify.key ~= nil then
+prefix = myverify.key
+else
+prefix = ";"
+end
+if myverify.disable ~= nil then
+disable = myverify.disable
+else
+disable = true
+end
+if myverify.SystemName ~= nil then
+System = myverify.SystemName
+else
+System = "{System}:"
+end
+if myverify.LeavePlayerFunction ~= nil then
+LeaveSystem = myverify.LeavePlayerFunction
+else
+LeaveSystem = "has leave the Experience"
+end
+if myverify.JoinPlayerFunction ~= nil then
+JoinSystem = myverify.JoinPlayerFunction
+else
+JoinSystem = "has joined the Experience"
+end
+if myverify.CheatBypass ~= nil then
+CBypass = myverify.CheatBypass
+else
+CBypass = false
+end
+end)
+
+if CBypass == false then
+game.Players.LocalPlayer:kick("You've get kicked\nReason: Exploit")
+elseif disable then
+game.Players.LocalPlayer:kick("Script Disable: true")
+else
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "Hello, "..myname.."",
+Duration = 10,
+Icon = game.Players:GetUserThumbnailAsync(myid, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size352x352)
+})
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/miroeramaa/TurtleLib/main/TurtleUiLib.lua"))()
+
+local Main = library:Window("Main")
+local Visuals = library:Window("Visuals")
+local Player = library:Window("Player")
+local Misc = library:Window("Misc")
+
+local LoopKill = {}
+local Remote = game.Workspace.Remote['ItemHandler']
+local flying = false
+local tpwalking = false
+
+local P = {}
+P.Regen = false
+P.Fast = false
+P.Save = false
+P.AuraToggle = false
+P.Aura = false
+P.Noclip = false
+P.Aim = false
+P.BuyGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(tonumber((game:GetService("Players").LocalPlayer.CharacterAppearance):split('=')[#((game:GetService("Players").LocalPlayer.CharacterAppearance):split('='))]), 96651)
+local toggle = false
+local ESPToggle = false
+local obj = game.workspace
+local XrayToggle = false
+local swimming = false
+local B = {}
+B.Walls = false
+B.Door = false
+B.Taser = false
+B.Day = false
+local C = {}
+local mouse = game.Players.LocalPlayer:GetMouse()
+
+local function GetPlayer(String)
+if not String then return end
+local Yes = {}
+for _, Player in ipairs(game.Players:GetPlayers()) do
+if string.lower(Player.Name):match(string.lower(String)) or string.lower(Player.DisplayName):match(string.lower(String)) then
+table.insert(Yes, Player)
+end
+end
+if #Yes > 0 then
+return Yes[1]
+elseif #Yes < 1 then
+return nil
+end
+end
+
+function swimG()
+if swimming == false then
+workspace.Gravity = 0
+local function swimDied()
+workspace.Gravity = 198.2
+swimming = false
+end
+local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+gravReset = Humanoid.Died:Connect(swimDied)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+swimming = true
+else
+workspace.Gravity = 198.2
+swimming = false
+if gravReset then
+gravReset:Disconnect()
+end
+local Humanoid = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid")
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+end
+end
+
+local Walls = {
+game.Workspace.Prison_Halls.walls,
+game.Workspace.Prison_Halls.roof,
+game.Workspace.Prison_Halls.outlines,
+game.Workspace.Prison_Halls.lights,
+game.Workspace.Prison_Halls.accent,
+game.Workspace.Prison_Halls.glass,
+game.Workspace.Prison_Cellblock.b_front,
+game.Workspace.Prison_Cellblock.doors,
+game.Workspace.Prison_Cellblock.c_tables,
+game.Workspace.Prison_Cellblock.a_front,
+game.Workspace.Prison_Cellblock.b_outerwall,
+game.Workspace.Prison_Cellblock.c_wall,
+game.Workspace.Prison_Cellblock.b_wall,
+game.Workspace.Prison_Cellblock.c_hallwall,
+game.Workspace.Prison_Cellblock.a_outerwall,
+game.Workspace.Prison_Cellblock.b_ramp,
+game.Workspace.Prison_Cellblock.a_ramp,
+game.Workspace.Prison_Cellblock.a_walls,
+game.Workspace.Prison_Cellblock.Cells_B,
+game.Workspace.Prison_Cellblock.Cells_A,
+game.Workspace.Prison_Cellblock.c_corner,
+game.Workspace.Prison_Cellblock.Wedge,
+game.Workspace.Prison_Cellblock.a_ceiling,
+game.Workspace.Prison_Cellblock.b_ceiling,
+game.Workspace.City_buildings,
+game.Workspace.Prison_OuterWall,
+game.Workspace.Prison_Fences,
+game.Workspace.Prison_Guard_Outpost,
+game.Workspace.Prison_Cafeteria.building,
+game.Workspace.Prison_Cafeteria.glass,
+game.Workspace.Prison_Cafeteria.oven,
+game.Workspace.Prison_Cafeteria.shelves,
+game.Workspace.Prison_Cafeteria.vents,
+game.Workspace.Prison_Cafeteria.accents,
+game.Workspace.Prison_Cafeteria["vending machine"],
+game.Workspace.Prison_Cafeteria.Prison_table1,
+game.Workspace.Prison_Cafeteria.counter,
+game.Workspace.Prison_Cafeteria.boxes,
+game.Workspace.Prison_Cafeteria["trash bins"]
+}
+
+local function GetPos()
+return game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+
+local function GetCamPos()
+return workspace.CurrentCamera.CFrame
+end
+
+local function GetTeam()
+return game.Players.LocalPlayer.TeamColor.Name
+end
+
+function GiveItem(ItemName)
+local Arguments = {
+[1] = Workspace.Prison_ITEMS.single:WaitForChild(ItemName).ITEMPICKUP
+}
+Remote:InvokeServer(unpack(Arguments))
+end
+
+local speaker = game:GetService("Players").LocalPlayer
+local spe = game.Players.LocalPlayer
+
+local function ErrNatsuki_fake_script()
+
+lplayer = game.Players.LocalPlayer
+speedget = 1
+speedfly = 1
+Mouse = lplayer:GetMouse()
+
+if flying == true then
+swimG()
+tpwalking = false
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+		speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+		spe.Character.Animate.Disabled = false
+else
+swimG()
+tpwalking = true
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+		speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+		spe.Character.Animate.Disabled = true
+end
+
+if flying == false then
+
+repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
+repeat wait() until Mouse
+
+local T = lplayer.Character.HumanoidRootPart
+local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+local SPEED = speedget
+
+local function fly()
+flying = true
+local BG = Instance.new('BodyGyro', T)
+local BV = Instance.new('BodyVelocity', T)
+BG.P = 9e4
+BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+BG.cframe = T.CFrame
+BV.velocity = Vector3.new(0, 0.1, 0)
+BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+spawn(function()
+repeat wait()
+lplayer.Character.Humanoid.PlatformStand = true
+if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+SPEED = 50
+elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+SPEED = 0
+end
+if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+else
+BV.velocity = Vector3.new(0, 0.1, 0)
+end
+BG.cframe = workspace.CurrentCamera.CoordinateFrame
+until not flying
+CONTROL = {F = 0, B = 0, L = 0, R = 0}
+lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+SPEED = 0
+BG:destroy()
+BV:destroy()
+lplayer.Character.Humanoid.PlatformStand = false
+end)
+end
+Mouse.KeyDown:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = speedfly
+elseif KEY:lower() == 's' then
+CONTROL.B = -speedfly
+elseif KEY:lower() == 'a' then
+CONTROL.L = -speedfly 
+elseif KEY:lower() == 'd' then 
+CONTROL.R = speedfly
+end
+end)
+Mouse.KeyUp:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = 0
+elseif KEY:lower() == 's' then
+CONTROL.B = 0
+elseif KEY:lower() == 'a' then
+CONTROL.L = 0
+elseif KEY:lower() == 'd' then
+CONTROL.R = 0
+end
+end)
+fly()
+else
+flying = false
+
+lplayer.Character.Humanoid.PlatformStand = false
+end
+
+
+Mouse.KeyDown:Connect(function(k)
+if k == "x" then
+
+if flying == false then
+
+repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
+repeat wait() until Mouse
+
+local T = lplayer.Character.HumanoidRootPart
+local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+local SPEED = speedget
+
+local function fly()
+flying = true
+local BG = Instance.new('BodyGyro', T)
+local BV = Instance.new('BodyVelocity', T)
+BG.P = 9e4
+BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+BG.cframe = T.CFrame
+BV.velocity = Vector3.new(0, 0.1, 0)
+BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+spawn(function()
+repeat wait()
+lplayer.Character.Humanoid.PlatformStand = true
+if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+SPEED = 50
+elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+SPEED = 0
+end
+if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+else
+BV.velocity = Vector3.new(0, 0.1, 0)
+end
+BG.cframe = workspace.CurrentCamera.CoordinateFrame
+until not flying
+CONTROL = {F = 0, B = 0, L = 0, R = 0}
+lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+SPEED = 0
+BG:destroy()
+BV:destroy()
+lplayer.Character.Humanoid.PlatformStand = false
+end)
+end
+Mouse.KeyDown:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = speedfly
+elseif KEY:lower() == 's' then
+CONTROL.B = -speedfly
+elseif KEY:lower() == 'a' then
+CONTROL.L = -speedfly 
+elseif KEY:lower() == 'd' then 
+CONTROL.R = speedfly
+end
+end)
+Mouse.KeyUp:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = 0
+elseif KEY:lower() == 's' then
+CONTROL.B = 0
+elseif KEY:lower() == 'a' then
+CONTROL.L = 0
+elseif KEY:lower() == 'd' then
+CONTROL.R = 0
+end
+end)
+speaker.Character.Animate.Disabled = true
+fly()
+nowe = true
+else
+flying = false
+nowe = false
+lplayer.Character.Humanoid.PlatformStand = false
+speaker.Character.Animate.Disabled = false
+end
+
+end
+end)
+end
+
+spawn(function()
+while wait() do
+if tpwalking then
+local hb = game:GetService("RunService").Heartbeat	
+local chr = game.Players.LocalPlayer.Character
+local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+while tpwalking and hb:Wait() and chr and hum and hum.Parent do
+if hum.MoveDirection.Magnitude > 0 then
+chr:TranslateBy(hum.MoveDirection)
+end
+end
+end
+end
+end)
+
+function Tase(Player)
+if Player.TeamColor.Name == "Bright blue" or not workspace:FindFirstChild(Player.Name) or not workspace:FindFirstChild(Player.Name):FindFirstChild("Head") or Player == nil or Player.Character.Parent ~= workspace then return end
+pcall(function()
+local savedcf = GetPos()
+local savedteam = GetTeam()
+
+local Gun = game.Players.LocalPlayer.Backpack:FindFirstChild("Taser") or game.Players.LocalPlayer.Character:FindFirstChild("Taser")
+
+local changedteam = false
+if game.Players.LocalPlayer.TeamColor.Name ~= "Bright blue" or not Gun then
+savedteam = GetTeam()
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new("Bright blue").Name)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+changedteam = true
+end
+
+local Guns = game.Players.LocalPlayer.Backpack:FindFirstChild("Taser") or game.Players.LocalPlayer.Character:FindFirstChild("Taser")
+
+local TaseEvent = 
+{
+[1] = 
+{
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Torso
+}
+}
+
+game:GetService("ReplicatedStorage").ShootEvent:FireServer(TaseEvent, Guns)
+if changedteam then
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new(savedteam).Name)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+end
+end)
+end
+
+function Arrest(Player, Time)
+local Time = Time or 1
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+local savedteam = GetTeam()
+if Player then
+repeat wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+for i = 1,Time do
+coroutine.wrap(function()
+workspace.Remote.arrest:InvokeServer(Player.Character.Head)
+end)()
+end
+until Player.Character:FindFirstChild("Head"):FindFirstChild("handcuffedGui")
+wait()
+end
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new(savedteam).Name)
+game.Players.LocalPlayer.Character.Humanoid.Sit = false
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+workspace.CurrentCamera.CFrame = savedcamcf
+end
+
+function DetectMove(Player)
+local oldpos = Player.Character.HumanoidRootPart.CFrame
+local Move
+local Time = 0
+repeat wait(.1)
+Time = Time + 1
+if oldpos ~= Player.Character.HumanoidRootPart.CFrame then
+Move = true
+else
+Move = false
+end
+until (Time >= 500 and Move == false) or Move == true
+return Move
+end
+
+function Kill(Player)
+pcall(function()
+if Player.Character:FindFirstChild("ForceField") or not workspace:FindFirstChild(Player.Name) or not workspace:FindFirstChild(Player.Name):FindFirstChild("Head") or Player == nil or Player.Character.Parent ~= workspace then return end
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+
+local MyTeam = GetTeam()
+if Player.TeamColor.Name == game.Players.LocalPlayer.TeamColor.Name then
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.random().Name)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+workspace.CurrentCamera.CFrame = savedcamcf
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+end
+
+local Gun = game.Players.LocalPlayer.Character:FindFirstChild("Remington 870") or game.Players.LocalPlayer.Backpack:FindFirstChild("Remington 870")
+
+local FireEvent = {
+[1] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [2] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [3] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [4] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [5] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [6] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [7] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}, [8] = {
+["RayObject"] = Ray.new(Vector3.new(), Vector3.new()), 
+["Distance"] = 0, 
+["Cframe"] = CFrame.new(), 
+["Hit"] = workspace[Player.Name].Head
+}
+}
+
+game:GetService("ReplicatedStorage").ShootEvent:FireServer(FireEvent, Gun)
+Gun.Parent = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character["Remington 870"]:Destroy()
+end)
+end
+
+function XrayOn(obj) --Enables xray
+for _,v in pairs(obj:GetChildren()) do
+if (v:IsA("BasePart")) and not v.Parent:FindFirstChild("Humanoid") then
+v.LocalTransparencyModifier = 0.75
+end
+XrayOn(v)
+end
+end
+ 
+function XrayOff(obj) --Disables xray
+for _,v in pairs(obj:GetChildren()) do
+if (v:IsA("BasePart")) and not v.Parent:FindFirstChild("Humanoid") then
+v.LocalTransparencyModifier = 0
+end XrayOff(v)
+end
+end
+
+local plrs = game:GetService("Players")
+local faces = {"Back","Bottom","Front","Left","Right","Top"}
+function MakeESP()
+for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+local bgui = Instance.new("BillboardGui",v.Character.Head)
+bgui.Name = ("EGUI")
+bgui.AlwaysOnTop = true
+bgui.ExtentsOffset = Vector3.new(0,2,0)
+bgui.Size = UDim2.new(0,200,0,50)
+local nam = Instance.new("TextLabel",bgui)
+nam.Text = v.Name
+nam.BackgroundTransparency = 1
+nam.TextSize = 15
+nam.Font = ("GothamBold")
+nam.TextColor3 = Color3.new(255,255,255)
+nam.Size = UDim2.new(0,200,0,50)
+if v.Backpack:FindFirstChild("Gun") or v.Character:FindFirstChild("Gun") then
+for _, p in pairs(v.Character:GetChildren()) do
+if p.Name == ("Head") or p.Name == ("Torso") or p.Name == ("Right Arm") or p.Name == ("Right Leg") or p.Name == ("Left Arm") or p.Name == ("Left Leg") then 
+for _, f in pairs(faces) do
+local m = Instance.new("SurfaceGui",p)
+m.Name = ("EGUI")
+m.Face = f
+m.AlwaysOnTop = true
+local mf = Instance.new("Frame",m)
+mf.Size = UDim2.new(1,0,1,0)
+mf.BorderSizePixel = 0
+mf.BackgroundTransparency = 0.5
+mf.BackgroundColor3 = Color3.new(0,0,255)
+end
+end
+end
+elseif v.Backpack:FindFirstChild("Knife") or v.Character:FindFirstChild("Knife") then
+for _, p in pairs(v.Character:GetChildren()) do
+if p.Name == ("Head") or p.Name == ("Torso") or p.Name == ("Right Arm") or p.Name == ("Right Leg") or p.Name == ("Left Arm") or p.Name == ("Left Leg") then 
+for _, f in pairs(faces) do
+local m = Instance.new("SurfaceGui",p)
+m.Name = ("EGUI")
+m.Face = f
+m.AlwaysOnTop = true
+local mf = Instance.new("Frame",m)
+mf.Size = UDim2.new(1,0,1,0)
+mf.BorderSizePixel = 0
+mf.BackgroundTransparency = 0.5
+mf.BackgroundColor3 = Color3.new(255,0,0)
+end
+end
+end
+else
+for _, p in pairs(v.Character:GetChildren()) do
+if p.Name == ("Head") or p.Name == ("Torso") or p.Name == ("Right Arm") or p.Name == ("Right Leg") or p.Name == ("Left Arm") or p.Name == ("Left Leg") then 
+for _, f in pairs(faces) do
+local m = Instance.new("SurfaceGui",p)
+m.Name = ("EGUI")
+m.Face = f
+m.AlwaysOnTop = true
+local mf = Instance.new("Frame",m)
+mf.Size = UDim2.new(1,0,1,0)
+mf.BorderSizePixel = 0
+mf.BackgroundTransparency = 0.5
+mf.BackgroundColor3 = Color3.new(255,255,255)
+end
+end
+end
+end
+end
+end
+end
+
+function ClearESP()
+for _, v in pairs(game.Workspace:GetDescendants()) do
+if v.Name == ("EGUI") then
+v:Remove()
+end
+end
+end
+
+function toClipboard(String)
+local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+if clipBoard then
+clipBoard(String)
+end
+end
+
+Main:Button("Credits by Err Natsuki", function(invite)
+local func = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+if func then
+func("https://tiktok.com/@err.natsuki")
+game.StarterGui:SetCore("SendNotification", {
+Title = "Script",
+Text = "Copy to Clipboard",
+Duration = 3
+})
+end
+end)
+
+Main:Button("Kill Aura", function(v)
+if P.AuraToggle == false then
+P.AuraToggle = true
+P.Aura = true
+else
+P.Aura = false
+P.AuraToggle = false
+end
+end)
+
+Main:Button("Guns", function(v)
+if P.BuyGamepass then
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+else
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+end
+end)
+
+Main:Dropdown("Team", {"Neutral","Criminals","InMates","Guards"},function(v)
+if v == "Neutral" then
+pcall(function()
+workspace.Remote.TeamEvent:FireServer("Medium stone grey")
+end)
+elseif v == "Criminals" then
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new("Really red").Name)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+workspace.CurrentCamera.CFrame = savedcamcf
+elseif v == "InMates" then
+pcall(function()
+workspace.Remote.TeamEvent:FireServer("Bright orange")
+end)
+elseif v == "Guards" then
+pcall(function()
+workspace.Remote.TeamEvent:FireServer("Bright blue")
+end)
+end
+end)
+
+Main:Button("Save Position", function(Print)
+if P.Save == false then
+P.Save = true
+else
+P.Save = false
+end
+end)
+
+Main:Button("Auto Regen", function(Regen)
+if P.Regen == false then
+P.Regen = true
+else
+P.Regen = false
+end
+end)
+
+Main:Button("Fast Punch", function()
+if P.Fast == false then
+P.Fast = true
+else
+P.Fast = false
+end
+end)
+
+Main:Button("Aimbot", function()
+if P.Aim == false then
+P.Aim = true
+else
+P.Aim = false
+end
+end)
+
+coroutine.wrap(function()
+while wait() do
+if P.Aim then
+local Camera = game:GetService("Workspace").CurrentCamera
+local Players = game:GetService("Players")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
+local function GetClosestPlayer()
+local ClosestPlayer = nil
+local FarthestDistance = math.huge
+for i, v in pairs(Players.GetPlayers(Players)) do
+if v ~= LocalPlayer and v.Character and v.Character.FindFirstChild(v.Character, "HumanoidRootPart") then
+local DistanceFromPlayer = (LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+if DistanceFromPlayer < FarthestDistance then
+FarthestDistance = DistanceFromPlayer
+ClosestPlayer = v
+end
+end
+end
+if ClosestPlayer then
+return ClosestPlayer
+end
+end
+
+local GameMetaTable = getrawmetatable(game)
+local OldGameMetaTableNamecall = GameMetaTable.__namecall
+setreadonly(GameMetaTable, false)
+
+GameMetaTable.__namecall = newcclosure(function(object, ...)
+   local NamecallMethod = getnamecallmethod()
+   local Arguments = {...}
+
+   if tostring(NamecallMethod) == "FindPartOnRayWithIgnoreList" then
+       local ClosestPlayer = GetClosestPlayer()
+       
+       if ClosestPlayer and ClosestPlayer.Character then
+           Arguments[1] = Ray.new(Camera.CFrame.Position, (ClosestPlayer.Character.Head.Position - Camera.CFrame.Position).Unit * (Camera.CFrame.Position - ClosestPlayer.Character.Head.Position).Magnitude)
+       end
+   end
+
+   return OldGameMetaTableNamecall(object, unpack(Arguments))
+end)
+
+setreadonly(GameMetaTable, true)
+end
+end
+end)
+
+spawn(function()
+while wait() do
+if P.Fast then
+pcall(function()
+getsenv(game.Players.LocalPlayer.Character.ClientInputHandler).cs.isFighting = false
+end)
+end
+end
+end)
+
+spawn(function()
+while wait() do
+if P.Regen then
+game.Players.LocalPlayer.Character.Humanoid.Health = 9999
+end
+end
+end)
+
+spawn(function()
+while wait() do
+if P.Save then
+if BuyGamepass then
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+else
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+end
+pcall(function()
+workspace.Remote.TeamEvent:FireServer("Medium stone grey")
+if game.Players.LocalPlayer.Character.Humanoid.Health < 1 then
+if game.Players.LocalPlayer.TeamColor.Name ~= "Medium stone grey" then
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+workspace.Remote.loadchar:InvokeServer()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+workspace.CurrentCamera.CFrame = savedcamcf
+end
+else
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new("Bright orange").Name)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+workspace.CurrentCamera.CFrame = savedcamcf
+end
+end
+end
+end)
+end
+end
+end)
+
+Visuals:Button("Noclip", function(v)
+game:GetService("RunService").Stepped:Connect(function()
+if P.Noclip == false then
+P.Noclip = true
+pcall(function()
+game.Players.LocalPlayer.Character:FindFirstChild("Head").CanCollide = false
+game.Players.LocalPlayer.Character:FindFirstChild("Torso").CanCollide = false
+end)
+else
+P.Noclip = false
+end
+end) 
+end)
+
+Visuals:Button("Xray", function(OML)
+if XrayToggle == false then
+XrayOn(obj)
+XrayToggle = true
+else
+XrayOff(obj)
+XrayToggle = false
+end
+end)
+
+Visuals:Button("ESP", function(s)
+if ESPToggle == false then
+pcall(ClearESP)
+pcall(MakeESP)
+ESPToggle = true
+else
+pcall(ClearESP)
+ESPToggle = false
+end
+end)
+
+Visuals:Box("Kill", function(Player, focuslost)
+if focuslost then
+Kill(GetPlayer(Player))
+end
+end)
+
+Visuals:Dropdown("Kill", {"Guards","InMates","Criminals","Neutral","All"},function(v)
+if v == "Guards" then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Bright blue" then
+Kill(v)
+end
+end
+end
+elseif v == "InMates" then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Bright orange" then
+Kill(v)
+end
+end
+end
+elseif v == "Criminals" then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Really red" then
+Kill(v)
+end
+end
+end
+elseif v == "Neutral" then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Medium stone grey" then
+Kill(v)
+end
+end
+end
+elseif v == "All" then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+Kill(v)
+end
+end
+end
+end)
+
+Visuals:Dropdown("Gun Mod", {"M9", "Remington 870", "AK-47"}, function(v)
+local module = nil
+if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+end
+if module ~= nil then
+module["MaxAmmo"] = math.huge
+module["CurrentAmmo"] = math.huge
+module["StoredAmmo"] = math.huge
+module["FireRate"] = 0.000001
+module["Spread"] = 0
+module["Range"] = math.huge
+module["Bullets"] = 10
+module["ReloadTime"] = 0.000001
+module["AutoFire"] = true
+end
+end)
+
+Visuals:Button("Open Gate", function(v)
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.buttons["Prison Gate"]["Prison Gate"])
+end)
+
+Visuals:Button("Knife", function(l)
+local Knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Crude Knife") or game.Players.LocalPlayer.Character:FindFirstChild("Crude Knife")
+if not Knife then
+workspace.Remote.ItemHandler:InvokeServer(workspace["Prison_ITEMS"].single["Crude Knife"].ITEMPICKUP)
+end
+wait()
+Knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Crude Knife") or game.Players.LocalPlayer.Character:FindFirstChild("Crude Knife")
+if Knife then
+local Cooldown = false
+local Hitting = false
+local Hitted = false
+Knife.Equipped:Connect(function()
+Knife.Activated:Connect(function()
+if not Cooldown then
+Cooldown = true
+Hitting = true
+for i,v in pairs(Knife:GetChildren()) do
+if v:IsA("Part") then
+v.Touched:Connect(function(Hit)
+if Hit and Hit.Parent ~= game.Players.LocalPlayer and not Hitted and Hitting then
+Hitted = true
+for i = 1,25 do
+game.ReplicatedStorage.meleeEvent:FireServer(game.Players[Hit.Parent.Name])
+end
+end
+end)
+end
+end
+wait(0.5)
+Cooldown = false
+Hitting = false
+Hitted = false
+end
+end)
+end)
+end
+end)
+
+Visuals:Box("Tase", function(Player, focuslost)
+if focuslost then
+Tase(GetPlayer(Player))
+end
+end)
+
+Visuals:Box("Arrest", function(Player, focuslost)
+if focuslost then
+Arrest(GetPlayer(Player))
+end
+end)
+
+Player:Box("Walkspeed", function(value, focuslost)
+if focuslost then
+game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
+end
+end)
+
+Player:Box("JumpPower", function(value, focuslost)
+if focuslost then
+game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = value
+end
+end)
+
+Player:Box("Gravity", function(value, focuslost)
+workspace.Gravity = value
+end)
+
+Player:Button("Rejoin", function(v)
+game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end)
+
+Player:Button("Swim", function(v)
+swimG()
+end)
+
+Player:Toggle("Fly", false, function(bool)
+if getgenv().bool == false then
+getgenv().bool = true
+ErrNatsuki_fake_script()
+else
+getgenv().bool = false
+ErrNatsuki_fake_script()
+end
+end)
+
+Misc:Dropdown("Teleport", {"Nexus", "Cafe", "Backnexus", "Yard", "Crimbase", "Armory", "Lunchroom", "Gate", "Tower", "Gatetower", "Sewer"}, function(v)
+if v == "Nexus" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(888, 100, 2388)
+elseif v == "Cafe" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(877, 100, 2256)
+elseif v == "Backnexus" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(982, 100, 2334)
+elseif v == "Yard" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(791, 98, 2498)
+elseif v == "Crimbase"then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-943, 95, 2055)
+elseif v == "Armory" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(789, 100, 2260)
+elseif v == "Lunchroom" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(905, 100, 2226)
+elseif v == "Gate" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(505, 103, 2250)
+elseif v == "Tower" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(822, 131, 2588)
+elseif v == "Gatetower" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(502, 126, 2306)
+elseif v == "Sewer" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(916, 79, 2311)
+end
+end)
+
+Misc:Button("God Mode", function()
+local Cam = workspace.CurrentCamera
+local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
+local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
+local nHuman = Human.Clone(Human)
+nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
+nHuman.SetStateEnabled(nHuman, 15, false)
+nHuman.SetStateEnabled(nHuman, 1, false)
+nHuman.SetStateEnabled(nHuman, 0, false)
+nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+local Script = Char.FindFirstChild(Char, "Animate")
+if Script then
+Script.Disabled = true
+wait()
+Script.Disabled = false
+end
+nHuman.Health = nHuman.MaxHealth
+end)
+
+Misc:Button("Walls", function(v)
+if B.Walls == false then
+pcall(function()
+for i,v in pairs(Walls) do
+v.Parent = game.Lighting
+end
+end)
+B.Walls = true
+else
+B.Walls = false
+pcall(function()
+for i,v in pairs(game.Lighting:GetChildren()) do
+if v.Name ~= "Doors" then
+v.Parent = workspace
+end
+end
+end)
+end
+end)
+
+Misc:Button("Doors", function(v)
+if B.Doors == false then
+B.Doors = true
+if workspace:FindFirstChild("Doors") then
+workspace.Doors.Parent = game.Lighting
+end
+else
+B.Doors = false
+if game.Lighting:FindFirstChild("Doors") then
+game.Lighting.Doors.Parent = workspace
+end
+end
+end)
+
+Misc:Button("Taser Bypass", function()
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+if B.Taser == false then
+B.Taser = true
+wait(.2)
+game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = true
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 24
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+else
+B.Taser = false
+game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 24
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+end
+end)
+end)
+
+--Re
+
+Misc:Box("Prefix", function(value, focuslost)
+if focuslost then
+
+prefix = value
+
+local VerifyPrefix = {
+name = myname,
+userid = myid,
+key = prefix,
+disable = false,
+SystemName = System,
+LeaveSystemFunction = LeaveSystem,
+JoinSystemFunction = JoinSystem,
+CheatBypass = CBypass
+}
+
+writefile("IY_"..game.Players.LocalPlayer.UserId..".iy",game:GetService("HttpService"):JSONEncode(VerifyPrefix))
+end
+end)
+
+Misc:Button("Disable Script", function(v)
+local VerifyScript = {
+name = myname,
+userid = myid,
+key = prefix,
+disable = true,
+SystemName = System,
+LeaveSystemFunction = LeaveSystem,
+JoinSystemFunction = JoinSystem,
+CheatBypass = CBypass
+}
+
+game.Players.LocalPlayer:kick("Script Disable: true")
+
+writefile("IY_"..game.Players.LocalPlayer.UserId..".iy",game:GetService("HttpService"):JSONEncode(VerifyScript))
+end)
+
+local function Command(Cmd)
+return C.Arg1 == prefix..Cmd
+end
+
+function Admin(Message)
+C.Split = Message:split(" ")
+C.Arg1 = C.Split[1]
+C.Arg2 = C.Split[2]
+if Command("speed") then
+game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = C.Arg2
+end
+if Command("jumppower") then
+game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = C.Arg2
+end
+if Command("killaura") then
+P.Aura = true
+end
+if Command("unkillaura") then
+P.Aura = false
+end
+if Command("tase") or Command("taser") then
+Tase(GetPlayer(C.Arg2))
+end
+if Command("kill") then
+Kill(GetPlayer(C.Arg2))
+end
+if Command("killguards") then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Bright blue" then
+Kill(v)
+end
+end
+end
+end
+if Command("killinmates") then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Bright orange" then
+Kill(v)
+end
+end
+end
+end
+if Command("killcriminals") then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Really red" then
+Kill(v)
+end
+end
+end
+end
+if Command("killneutral") then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+if v.TeamColor.Name == "Medium stone grey" then
+Kill(v)
+end
+end
+end
+end
+if Command("killall") then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+Kill(v)
+end
+end
+end
+if Command("loopkill") or Command("lk") then
+local Player = GetPlayer(C.Arg2)
+if Player ~= nil and not LoopKill[Player.UserId] then
+LoopKill[Player.UserId] = {Player = Player}
+end
+end
+if Command("unloopkill") or Command("unlk") then
+local Player = GetPlayer(C.Arg2)
+if Player ~= nil and LoopKill[Player.UserId] then
+LoopKill[Player.UserId] = nil
+end
+end
+if Command("nexus") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(888, 100, 2388)
+end
+if Command("cafe") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(877, 100, 2256)
+end
+if Command("backnexus") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(982, 100, 2334)
+end
+if Command("yard") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(791, 98, 2498)
+end
+if Command("crimbase") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-943, 95, 2055)
+end
+if Command("armory") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(789, 100, 2260)
+end
+if Command("lunchroom") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(905, 100, 2226)
+end
+if Command("gate") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(505, 103, 2250)
+end
+if Command("tower") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(822, 131, 2588)
+end
+if Command("gatetower") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(502, 126, 2306)
+end
+if Command("sewer") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(916, 79, 2311)
+end
+if Command("gravity") then
+workspace.Gravity = C.Arg2
+end
+if Command("opengate") then
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.buttons["Prison Gate"]["Prison Gate"])
+end
+if Command("noclip") then
+game:GetService("RunService").Stepped:Connect(function()
+P.Noclip = true
+pcall(function()
+game.Players.LocalPlayer.Character:FindFirstChild("Head").CanCollide = false
+game.Players.LocalPlayer.Character:FindFirstChild("Torso").CanCollide = false
+end)
+end)
+end
+if Command("clip") then
+P.Noclip = false
+end
+if Command("key") or Command("keycard") then
+GiveItem("Key card")
+end
+if Command("kick") then
+local Player = GetPlayer(C.Arg2)
+Player:kick("You've get kicked from: "..game.Players.LocalPlayer.."\nReason: Exploit")
+end
+if Command("god") then
+local Cam = workspace.CurrentCamera
+local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
+local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
+local nHuman = Human.Clone(Human)
+nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
+nHuman.SetStateEnabled(nHuman, 15, false)
+nHuman.SetStateEnabled(nHuman, 1, false)
+nHuman.SetStateEnabled(nHuman, 0, false)
+nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+local Script = Char.FindFirstChild(Char, "Animate")
+if Script then
+Script.Disabled = true
+wait()
+Script.Disabled = false
+end
+nHuman.Health = nHuman.MaxHealth
+end
+if Command("ungod") then
+local Cam = workspace.CurrentCamera
+local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
+local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
+local nHuman = Human.Clone(Human)
+nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
+nHuman.SetStateEnabled(nHuman, 15, false)
+nHuman.SetStateEnabled(nHuman, 1, false)
+nHuman.SetStateEnabled(nHuman, 0, false)
+nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+local Script = Char.FindFirstChild(Char, "Animate")
+if Script then
+Script.Disabled = true
+wait()
+Script.Disabled = false
+end
+nHuman.Health = 100
+end
+if Command("fly") then
+ErrNatsuki_fake_script()
+end
+if Command("unfly") then
+ErrNatsuki_fake_script()
+end
+if Command("re") or Command("res") or Command("respawn") then
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+local saveteam = GetTeam()
+spe.Character.Humanoid.Health = 0
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
+workspace.CurrentCamera.CFrame = savedcamcf
+end
+end
+
+coroutine.wrap(function()
+while wait() do
+if P.Aura then
+for i,v in pairs(game.Players:GetPlayers()) do
+pcall(function()
+if v ~= game.Players.LocalPlayer then
+local Distance = (v.Character:FindFirstChildOfClass("Part").Position - game.Players.LocalPlayer.Character:FindFirstChildOfClass("Part").Position).magnitude
+if Distance <= 10 then
+for i = 1,25 do
+game.ReplicatedStorage.meleeEvent:FireServer(v)
+end
+end
+end
+end)
+end
+end
+end
+end)()
+
+spawn(function()
+while wait() do
+for i,v in pairs(LoopKill) do
+pcall(function()
+if v.Player and v.Player.Character and v.Player.Character.Head and v.Player.Character.Humanoid.Health ~= 0 then
+Kill(v.Player)
+end
+end)
+end
+end
+end)
+
+game.Players.LocalPlayer.Chatted:Connect(Admin)
+
+game.Players.PlayerAdded:Connect(function(Player)
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+Text = System.." "..Player.DisplayName.." "..JoinSystem,
+Color = Color3.fromRGB(255, 255, 255),
+})
+end)
+
+game.Players.PlayerRemoving:Connect(function(Player)
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+Text = System.." "..Player.DisplayName.." "..LeaveSystem,
+Color = Color3.fromRGB(255, 255, 255),
+})
+end)
+
+end
