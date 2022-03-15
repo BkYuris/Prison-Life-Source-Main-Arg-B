@@ -6,6 +6,7 @@ local System = nil
 local LeaveSystem = nil
 local JoinSystem = nil
 local CBypass = false
+local AddCmd = nil
 
 local Verify = {
 name = game.Players.LocalPlayer.Name,
@@ -15,7 +16,57 @@ disable = false,
 SystemName = "{System}:",
 LeavePlayerFunction = "has leave the Experience",
 JoinPlayerFunction = "has joined the Experience",
-CheatBypass = true
+CheatBypass = true,
+COMMANDS = [[local function CmdMore(CmdS)
+return Arg1 == ":"..CmdS
+end
+
+function MoreCmd(Message)
+Split = Message:split(" ")
+Arg1 = Split[1]
+Arg2 = Split[2]
+Arg3 = Split[3]
+Arg4 = Split[4]
+if CmdMore("knife") then
+local Knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Crude Knife") or game.Players.LocalPlayer.Character:FindFirstChild("Crude Knife")
+if not Knife then
+workspace.Remote.ItemHandler:InvokeServer(workspace["Prison_ITEMS"].single["Crude Knife"].ITEMPICKUP)
+end
+wait()
+Knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Crude Knife") or game.Players.LocalPlayer.Character:FindFirstChild("Crude Knife")
+if Knife then
+local Cooldown = false
+local Hitting = false
+local Hitted = false
+Knife.Equipped:Connect(function()
+Knife.Activated:Connect(function()
+if not Cooldown then
+Cooldown = true
+Hitting = true
+for i,v in pairs(Knife:GetChildren()) do
+if v:IsA("Part") then
+v.Touched:Connect(function(Hit)
+if Hit and Hit.Parent ~= game.Players.LocalPlayer and not Hitted and Hitting then
+Hitted = true
+for i = 1,25 do
+game.ReplicatedStorage.meleeEvent:FireServer(game.Players[Hit.Parent.Name])
+end
+end
+end)
+end
+end
+wait(0.5)
+Cooldown = false
+Hitting = false
+Hitted = false
+end
+end)
+end)
+end
+end
+end
+
+game.Players.LocalPlayer.Chatted:Connect(MoreCmd)]]
 }
 
 if readfile("IY_"..game.Players.LocalPlayer.UserId..".iy") == "" then
@@ -63,6 +114,60 @@ if myverify.CheatBypass ~= nil then
 CBypass = myverify.CheatBypass
 else
 CBypass = false
+end
+if myverify.COMMANDS ~= nil then
+AddCmd = myverify.COMMANDS
+else
+AddCmd = [[local function CmdMore(CmdS)
+return Arg1 == ":"..CmdS
+end
+
+function MoreCmd(Message)
+Split = Message:split(" ")
+Arg1 = Split[1]
+Arg2 = Split[2]
+Arg3 = Split[3]
+Arg4 = Split[4]
+if CmdMore("knife") then
+local Knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Crude Knife") or game.Players.LocalPlayer.Character:FindFirstChild("Crude Knife")
+if not Knife then
+workspace.Remote.ItemHandler:InvokeServer(workspace["Prison_ITEMS"].single["Crude Knife"].ITEMPICKUP)
+end
+wait()
+Knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Crude Knife") or game.Players.LocalPlayer.Character:FindFirstChild("Crude Knife")
+if Knife then
+local Cooldown = false
+local Hitting = false
+local Hitted = false
+Knife.Equipped:Connect(function()
+Knife.Activated:Connect(function()
+if not Cooldown then
+Cooldown = true
+Hitting = true
+for i,v in pairs(Knife:GetChildren()) do
+if v:IsA("Part") then
+v.Touched:Connect(function(Hit)
+if Hit and Hit.Parent ~= game.Players.LocalPlayer and not Hitted and Hitting then
+Hitted = true
+for i = 1,25 do
+game.ReplicatedStorage.meleeEvent:FireServer(game.Players[Hit.Parent.Name])
+end
+end
+end)
+end
+end
+wait(0.5)
+Cooldown = false
+Hitting = false
+Hitted = false
+end
+end)
+end)
+end
+end
+end
+
+game.Players.LocalPlayer.Chatted:Connect(MoreCmd)]]
 end
 end)
 
@@ -1213,7 +1318,8 @@ disable = false,
 SystemName = System,
 LeaveSystemFunction = LeaveSystem,
 JoinSystemFunction = JoinSystem,
-CheatBypass = CBypass
+CheatBypass = CBypass,
+COMMANDS = AddCmd
 }
 
 writefile("IY_"..game.Players.LocalPlayer.UserId..".iy",game:GetService("HttpService"):JSONEncode(VerifyPrefix))
@@ -1229,7 +1335,8 @@ disable = true,
 SystemName = System,
 LeaveSystemFunction = LeaveSystem,
 JoinSystemFunction = JoinSystem,
-CheatBypass = CBypass
+CheatBypass = CBypass,
+COMMANDS = AddCmd
 }
 
 game.Players.LocalPlayer:kick("Script Disable: true")
@@ -1581,6 +1688,8 @@ end
 end)
 
 game.Players.LocalPlayer.Chatted:Connect(Admin)
+
+loadstring((AddCmd))()
 
 game.Players.PlayerAdded:Connect(function(Player)
 game.StarterGui:SetCore("ChatMakeSystemMessage", {
