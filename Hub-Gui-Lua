@@ -1583,14 +1583,14 @@ if Command("unfly") then
 ErrNatsuki_fake_script()
 end
 if Command("rank") then
-local Player = GetPlayer(CArg2)
+local Player = GetPlayer(C.Arg2)
 if Player ~= nil and not Admin[Player.UserId] then
 Admin[Player.UserId] = {Player = Player}
 Chat("/w "..Player.Name.." You've got admin Permission Type :cmds to see Commands")
 end
 end
 if Command("unrank") then
-local Player = GetPlayer(CArg2)
+local Player = GetPlayer(C.Arg2)
 if Player ~= nil and Admin[Player.UserId] then
 Admin[Player.UserId] = nil
 end
