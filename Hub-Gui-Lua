@@ -1,4 +1,4 @@
-local myname = nil
+?local myname = nil
 local myid = nil
 local prefix = nil
 local disable = false
@@ -223,6 +223,8 @@ B.Taser = false
 B.Day = false
 local C = {}
 local mouse = game.Players.LocalPlayer:GetMouse()
+
+local God = false
 
 local function GetPlayer(String)
 if not String then return end
@@ -1205,6 +1207,96 @@ ErrNatsuki_fake_script()
 end
 end)
 
+Player:Button("Add More Cmd", function(v)
+local Screen = Instance.new("ScreenGui")
+local StartFrame = Instance.new("ImageLabel")
+local BG = Instance.new("Frame")
+local Label = Instance.new("TextLabel")
+local Text = Instance.new("TextBox")
+
+Screen.Name = "Screen"
+Screen.Parent = game:GetService("CoreGui")
+Screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+StartFrame.Name = "StartFrame"
+StartFrame.Parent = Screen
+StartFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+StartFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+StartFrame.BackgroundTransparency = 1.000
+StartFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+StartFrame.Image = "rbxassetid://3570695787"
+StartFrame.ImageColor3 = Color3.fromRGB(20, 20, 20)
+StartFrame.ScaleType = Enum.ScaleType.Slice
+StartFrame.SliceCenter = Rect.new(100, 100, 100, 100)
+
+BG.Name = "BG"
+BG.Parent = Screen
+BG.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+BG.BorderSizePixel = 0
+BG.Position = UDim2.new(0.5, 0, 0.5, 0)
+BG.Size = UDim2.new(0, 250, 0, 80)
+BG.Active = true
+BG.Draggable = true
+BG.Visible = false
+
+Label.Name = "Label"
+Label.Parent = BG
+Label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0, 0, 0, 0)
+Label.Size = UDim2.new(0, 250, 0, 25)
+Label.Font = Enum.Font.GothamBlack
+Label.Text = "Cmd Name"
+Label.TextColor3 = Color3.fromRGB(255, 255, 0)
+Label.TextScaled = true
+Label.TextSize = 14.000
+Label.TextWrapped = true
+
+Text.Name = "Text"
+Text.Parent = BG
+Text.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Text.BorderColor3 = Color3.fromRGB(255, 128, 0)
+Text.Position = UDim2.new(0.097, 0, 0.436, 0)
+Text.Size = UDim2.new(0, 190, 0, 30)
+Text.Font = Enum.Font.SourceSans
+Text.Text = ""
+Text.TextColor3 = Color3.fromRGB(255, 128, 0)
+Text.TextSize = 14.000
+Text.TextWrapped = true
+
+wait(3)
+StartFrame.Visible = false
+BG.Visible = true
+
+Text.FocusLost:Connect(function(focuslost)
+if focuslost then
+if Label.Text == "Cmd Name" then
+SaveName = Text.Text
+Label.Text = "Cmd Code"
+elseif Label.Text == "Cmd Code" then
+SaveCode = Text.Text
+Label.Text = "Wait A Second"
+local C = {
+name = myname,
+userid = myid,
+key = prefix,
+disable = false,
+SystemName = System,
+LeaveSystemFunction = LeaveSystem,
+JoinSystemFunction = JoinSystem,
+CheatBypass = CBypass,
+COMMANDS = AddCmd..'\n\nfunction SaveName()if CmdMore(SaveName) then\n'..SaveCode..'end\n\ngame.Players.LocalPlayer.Chatted:Connect(SaveName)'
+}
+
+writefile("IY_"..game.Players.LocalPlayer.UserId..".iy",game:GetService("HttpService"):JSONEncode(C))
+wait(3)
+Label.Text = "Success"
+wait(2)
+BG.Visible = false
+end
+end)
+end)
+
 Misc:Dropdown("Teleport", {"Nexus", "Cafe", "Backnexus", "Yard", "Crimbase", "Armory", "Lunchroom", "Gate", "Tower", "Gatetower", "Sewer"}, function(v)
 if v == "Nexus" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(888, 100, 2388)
@@ -1232,24 +1324,11 @@ end
 end)
 
 Misc:Button("God Mode", function()
-local Cam = workspace.CurrentCamera
-local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
-local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
-local nHuman = Human.Clone(Human)
-nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
-nHuman.SetStateEnabled(nHuman, 15, false)
-nHuman.SetStateEnabled(nHuman, 1, false)
-nHuman.SetStateEnabled(nHuman, 0, false)
-nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
-game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
-nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-local Script = Char.FindFirstChild(Char, "Animate")
-if Script then
-Script.Disabled = true
-wait()
-Script.Disabled = false
+if God == false then
+God = true
+else
+God = false
 end
-nHuman.Health = nHuman.MaxHealth
 end)
 
 Misc:Button("Walls", function(v)
@@ -1297,7 +1376,7 @@ game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
 else
 B.Taser = false
 game.Players.LocalPlayer.Character.ClientInputHandler.Disabled = false
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 24
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
 end
 end)
@@ -1521,49 +1600,17 @@ local Player = GetPlayer(C.Arg2)
 Player:kick("You've get kicked from: "..game.Players.LocalPlayer.."\nReason: Exploit")
 end
 if Command("god") then
-local Cam = workspace.CurrentCamera
-local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
-local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
-local nHuman = Human.Clone(Human)
-nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
-nHuman.SetStateEnabled(nHuman, 15, false)
-nHuman.SetStateEnabled(nHuman, 1, false)
-nHuman.SetStateEnabled(nHuman, 0, false)
-nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
-game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
-nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-local Script = Char.FindFirstChild(Char, "Animate")
-if Script then
-Script.Disabled = true
-wait()
-Script.Disabled = false
-end
-nHuman.Health = nHuman.MaxHealth
+God = true
 end
 if Command("ungod") then
-local Cam = workspace.CurrentCamera
-local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
-local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
-local nHuman = Human.Clone(Human)
-nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
-nHuman.SetStateEnabled(nHuman, 15, false)
-nHuman.SetStateEnabled(nHuman, 1, false)
-nHuman.SetStateEnabled(nHuman, 0, false)
-nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
-game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
-nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-local Script = Char.FindFirstChild(Char, "Animate")
-if Script then
-Script.Disabled = true
-wait()
-Script.Disabled = false
-end
-nHuman.Health = 100
+God = false
 end
 if Command("fly") then
+flying = true
 ErrNatsuki_fake_script()
 end
 if Command("unfly") then
+flying = false
 ErrNatsuki_fake_script()
 end
 if Command("re") or Command("res") or Command("respawn") then
@@ -1683,6 +1730,29 @@ end
 end)
 end
 end
+end
+end
+end)
+
+spawn(function()
+while wait() do
+if God then
+game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait()
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+wait(5)
+local savedcf = GetPos()
+local savedcamcf = GetCamPos()
+local savedteam = GetTeam()
+workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new(savedteam).Name)
+workspace.CurrentCamera.CFrame = savedcamcf
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
 end
 end
 end)
