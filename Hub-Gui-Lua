@@ -1,3 +1,69 @@
+if CBypass == false then
+game.Players.LocalPlayer:kick("You've get kicked\nReason: Exploit")
+elseif disable then
+game.Players.LocalPlayer:kick("Script Disable: true")
+else
+local Screen = Instance.new("ScreenGui")
+local BG = Instance.new("Frame")
+local Label = Instance.new("TextLabel")
+local Text = Instance.new("TextBox")
+
+Screen.Name = "Screen"
+Screen.Parent = game:GetService("CoreGui")
+Screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+BG.Name = "BG"
+BG.Parent = Screen
+BG.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+BG.BorderSizePixel = 0
+BG.Position = UDim2.new(0.5, 0, 0.5, 0)
+BG.Size = UDim2.new(0, 250, 0, 80)
+BG.Active = true
+BG.Draggable = true
+BG.Visible = true
+
+Label.Name = "Label"
+Label.Parent = BG
+Label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0, 0, 0, 0)
+Label.Size = UDim2.new(0, 250, 0, 25)
+Label.Font = Enum.Font.GothamBlack
+Label.Text = "Regerating Key"
+Label.TextColor3 = Color3.fromRGB(255, 255, 0)
+Label.TextScaled = true
+Label.TextSize = 14.000
+Label.TextWrapped = true
+
+Text.Name = "Text"
+Text.Parent = BG
+Text.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Text.BorderColor3 = Color3.fromRGB(255, 128, 0)
+Text.Position = UDim2.new(0.097, 0, 0.436, 0)
+Text.Size = UDim2.new(0, 190, 0, 30)
+Text.Font = Enum.Font.SourceSans
+Text.Text = ""
+Text.TextColor3 = Color3.fromRGB(255, 128, 0)
+Text.TextSize = 14.000
+Text.TextWrapped = true
+
+local SVR = math.random(1,5)
+
+wait(SVR)
+
+local KeyCode = math.random(1,200000730)
+
+Label.Text = "Key: "..KeyCode
+
+Text.FocusLost:Connect(function(FocusLost)
+if FocusLost then
+if Text.Text == Label.Text:split(" ")[2] then
+Text.Text = "Valid Code"
+wait(1)
+BG.Size = UDim2.new(999, 999, 999, 999)
+wait(SVR)
+BG.Visible = false
+
 local myname = nil
 local myid = nil
 local prefix = nil
@@ -171,11 +237,6 @@ game.Players.LocalPlayer.Chatted:Connect(MoreCmd)]]
 end
 end)
 
-if CBypass == false then
-game.Players.LocalPlayer:kick("You've get kicked\nReason: Exploit")
-elseif disable then
-game.Players.LocalPlayer:kick("Script Disable: true")
-else
 game.StarterGui:SetCore("SendNotification", {
 Title = "Script",
 Text = "Hello, "..myname.."",
@@ -368,206 +429,202 @@ if flying == true then
 swimG()
 tpwalking = false
 speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
-		speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
-		spe.Character.Animate.Disabled = false
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+spe.Character.Animate.Disabled = false
 else
 swimG()
 tpwalking = true
 speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
-		speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
-		speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
-		spe.Character.Animate.Disabled = true
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+speaker.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+speaker.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+spe.Character.Animate.Disabled = true
 end
 
+if flying == false tthe
+repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
+repeat wait() until Mouse
+
+local T = lplayer.Character.HumanoidRootPart
+local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+local SPEED = speedget
+
+local function fly()
+flying = true
+local BG = Instance.new('BodyGyro', T)
+local BV = Instance.new('BodyVelocity', T)
+BG.P = 9e4
+BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+BG.cframe = T.CFrame
+BV.velocity = Vector3.new(0, 0.1, 0)
+BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+spawn(function()
+repeat wait()
+lplayer.Character.Humanoid.PlatformStand = true
+if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+SPEED = 50
+elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+SPEED = 0
+end
+if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+else
+BV.velocity = Vector3.new(0, 0.1, 0)
+end
+BG.cframe = workspace.CurrentCamera.CoordinateFrame
+until not flying
+CONTROL = {F = 0, B = 0, L = 0, R = 0}
+lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+SPEED = 0
+BG:destroy()
+BV:destroy()
+lplayer.Character.Humanoid.PlatformStand = false
+end)
+end
+Mouse.KeyDown:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = speedfly
+elseif KEY:lower() == 's' then
+CONTROL.B = -speedfly
+elseif KEY:lower() == 'a' then
+CONTROL.L = -speedfly 
+elseif KEY:lower() == 'd' then 
+CONTROL.R = speedfly
+end
+end)
+Mouse.KeyUp:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = 0
+elseif KEY:lower() == 's' then
+CONTROL.B = 0
+elseif KEY:lower() == 'a' then
+CONTROL.L = 0
+elseif KEY:lower() == 'd' then
+CONTROL.R = 0
+end
+end)
+fly()
+else
+flying = false
+lplayer.Character.Humanoid.PlatformStand = false
+end
+
+Mouse.KeyDown:Connect(function(k)
+if k == "x" then
+
 if flying == false then
-				script.Parent.BackgroundColor3 = Color3.fromRGB(52, 255, 52)
-				
-				repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
-				repeat wait() until Mouse
-				
-				local T = lplayer.Character.HumanoidRootPart
-				local CONTROL = {F = 0, B = 0, L = 0, R = 0}
-				local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
-				local SPEED = speedget
-				
-				local function fly()
-					flying = true
-					local BG = Instance.new('BodyGyro', T)
-					local BV = Instance.new('BodyVelocity', T)
-					BG.P = 9e4
-					BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-					BG.cframe = T.CFrame
-					BV.velocity = Vector3.new(0, 0.1, 0)
-					BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
-					spawn(function()
-					repeat wait()
-					lplayer.Character.Humanoid.PlatformStand = true
-					if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
-						SPEED = 50
-					elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
-						SPEED = 0
-					end
-					if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
-						BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-						lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
-					elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
-						BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-					else
-						BV.velocity = Vector3.new(0, 0.1, 0)
-					end
-					BG.cframe = workspace.CurrentCamera.CoordinateFrame
-					until not flying
-						CONTROL = {F = 0, B = 0, L = 0, R = 0}
-						lCONTROL = {F = 0, B = 0, L = 0, R = 0}
-						SPEED = 0
-						BG:destroy()
-						BV:destroy()
-						lplayer.Character.Humanoid.PlatformStand = false
-					end)
-				end
-				Mouse.KeyDown:connect(function(KEY)
-					if KEY:lower() == 'w' then
-						CONTROL.F = speedfly
-					elseif KEY:lower() == 's' then
-						CONTROL.B = -speedfly
-					elseif KEY:lower() == 'a' then
-						CONTROL.L = -speedfly 
-					elseif KEY:lower() == 'd' then 
-						CONTROL.R = speedfly
-					end
-				end)
-				Mouse.KeyUp:connect(function(KEY)
-					if KEY:lower() == 'w' then
-						CONTROL.F = 0
-					elseif KEY:lower() == 's' then
-						CONTROL.B = 0
-					elseif KEY:lower() == 'a' then
-						CONTROL.L = 0
-					elseif KEY:lower() == 'd' then
-						CONTROL.R = 0
-					end
-				end)
-				fly()
-			else
-				flying = false
-				script.Parent.BackgroundColor3 = Color3.fromRGB(255, 51, 51)
-				lplayer.Character.Humanoid.PlatformStand = false
-			end
-		end)
-		
-		Mouse.KeyDown:Connect(function(k)
-			if k == "x" then
-				
-				if flying == false then
-					script.Parent.BackgroundColor3 = Color3.fromRGB(52, 255, 52)
-					
-					repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
-					repeat wait() until Mouse
-					
-					local T = lplayer.Character.HumanoidRootPart
-					local CONTROL = {F = 0, B = 0, L = 0, R = 0}
-					local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
-					local SPEED = speedget
-					
-					local function fly()
-						flying = true
-						local BG = Instance.new('BodyGyro', T)
-						local BV = Instance.new('BodyVelocity', T)
-						BG.P = 9e4
-						BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-						BG.cframe = T.CFrame
-						BV.velocity = Vector3.new(0, 0.1, 0)
-						BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
-						spawn(function()
-						repeat wait()
-						lplayer.Character.Humanoid.PlatformStand = true
-						if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
-							SPEED = 50
-						elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
-							SPEED = 0
-						end
-						if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
-							BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-							lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
-						elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
-							BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-						else
-							BV.velocity = Vector3.new(0, 0.1, 0)
-						end
-						BG.cframe = workspace.CurrentCamera.CoordinateFrame
-						until not flying
-							CONTROL = {F = 0, B = 0, L = 0, R = 0}
-							lCONTROL = {F = 0, B = 0, L = 0, R = 0}
-							SPEED = 0
-							BG:destroy()
-							BV:destroy()
-							lplayer.Character.Humanoid.PlatformStand = false
-						end)
-					end
-					Mouse.KeyDown:connect(function(KEY)
-						if KEY:lower() == 'w' then
-							CONTROL.F = speedfly
-						elseif KEY:lower() == 's' then
-							CONTROL.B = -speedfly
-						elseif KEY:lower() == 'a' then
-							CONTROL.L = -speedfly 
-						elseif KEY:lower() == 'd' then 
-							CONTROL.R = speedfly
-						end
-					end)
-					Mouse.KeyUp:connect(function(KEY)
-						if KEY:lower() == 'w' then
-							CONTROL.F = 0
-						elseif KEY:lower() == 's' then
-							CONTROL.B = 0
-						elseif KEY:lower() == 'a' then
-							CONTROL.L = 0
-						elseif KEY:lower() == 'd' then
-							CONTROL.R = 0
-						end
-					end)
-					fly()
-				else
-					flying = false
-					script.Parent.BackgroundColor3 = Color3.fromRGB(255, 51, 51)
-					lplayer.Character.Humanoid.PlatformStand = false
-				end
-				
-			end
-		end)
+
+
+repeat wait() until lplayer and lplayer.Character and lplayer.Character:FindFirstChild('HumanoidRootPart') and lplayer.Character:FindFirstChild('Humanoid')
+repeat wait() until Mouse
+
+local T = lplayer.Character.HumanoidRootPart
+local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+local SPEED = speedget
+
+local function fly()
+flying = true
+local BG = Instance.new('BodyGyro', T)
+local BV = Instance.new('BodyVelocity', T)
+BG.P = 9e4
+BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+BG.cframe = T.CFrame
+BV.velocity = Vector3.new(0, 0.1, 0)
+BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+spawn(function()
+repeat wait()
+lplayer.Character.Humanoid.PlatformStand = true
+if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+SPEED = 50
+elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+SPEED = 0
+end
+if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+else
+BV.velocity = Vector3.new(0, 0.1, 0)
+end
+BG.cframe = workspace.CurrentCamera.CoordinateFrame
+until not flying
+CONTROL = {F = 0, B = 0, L = 0, R = 0}
+lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+SPEED = 0
+BG:destroy()
+BV:destroy()
+lplayer.Character.Humanoid.PlatformStand = false
+end)
+end
+Mouse.KeyDown:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = speedfly
+elseif KEY:lower() == 's' then
+CONTROL.B = -speedfly
+elseif KEY:lower() == 'a' then
+CONTROL.L = -speedfly 
+elseif KEY:lower() == 'd' then 
+CONTROL.R = speedfly
+end
+end)
+Mouse.KeyUp:connect(function(KEY)
+if KEY:lower() == 'w' then
+CONTROL.F = 0
+elseif KEY:lower() == 's' then
+CONTROL.B = 0
+elseif KEY:lower() == 'a' then
+CONTROL.L = 0
+elseif KEY:lower() == 'd' then
+CONTROL.R = 0
+end
+end)
+fly()
+else
+flying = false
+
+lplayer.Character.Humanoid.PlatformStand = false
+end
+
+end
+end)
 end
 
 spawn(function()
 while wait() do
 if tpwalking then
-local hb = game:GetService("RunService").Heartbeat	
+local hb = game:GetService("RunService").Heartbeat
 local chr = game.Players.LocalPlayer.Character
 local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
 while tpwalking and hb:Wait() and chr and hum and hum.Parent do
@@ -1680,6 +1737,14 @@ game.StarterGui:SetCore("ChatMakeSystemMessage", {
 Text = System.." "..Player.DisplayName.." "..LeaveSystem,
 Color = Color3.fromRGB(255, 255, 255),
 })
+end)
+
+else
+Text.Text = "Invalid Code"
+wait(1)
+Text.Text = ""
+end
+end
 end)
 
 end
