@@ -474,10 +474,6 @@ CONTROL.R = 0
 end
 end)
 fly()
-else
-flying = false
-
-lplayer.Character.Humanoid.PlatformStand = false
 end
 
 
@@ -579,6 +575,11 @@ end
 end
 end
 end)
+
+local function Unfly_fake_script()
+flying = false
+lplayer.Character.Humanoid.PlatformStand = false
+end
 
 function Tase(Player)
 if Player.TeamColor.Name == "Bright blue" or not workspace:FindFirstChild(Player.Name) or not workspace:FindFirstChild(Player.Name):FindFirstChild("Head") or Player == nil or Player.Character.Parent ~= workspace then return end
@@ -1203,7 +1204,7 @@ getgenv().bool = true
 ErrNatsuki_fake_script()
 else
 getgenv().bool = false
-ErrNatsuki_fake_script()
+Unfly_fake_script()
 end
 end)
 
@@ -1519,7 +1520,7 @@ if Command("fly") then
 ErrNatsuki_fake_script()
 end
 if Command("unfly") then
-ErrNatsuki_fake_script()
+Unfly_fake_script()
 end
 if Command("re") or Command("res") or Command("respawn") then
 local savedcf = GetPos()
