@@ -1285,7 +1285,7 @@ SystemName = System,
 LeaveSystemFunction = LeaveSystem,
 JoinSystemFunction = JoinSystem,
 CheatBypass = CBypass,
-COMMANDS = AddCmd..'\n\nfunction SaveName()if CmdMore(SaveName) then\n'..SaveCode..'end\n\ngame.Players.LocalPlayer.Chatted:Connect(SaveName)'
+COMMANDS = AddCmd..'\n\nfunction '..SaveName..'()\nif CmdMore('..SaveName..') then\n'..SaveCode..'end\n\ngame.Players.LocalPlayer.Chatted:Connect('..SaveName..')'
 }
 
 writefile("IY_"..game.Players.LocalPlayer.UserId..".iy",game:GetService("HttpService"):JSONEncode(C))
