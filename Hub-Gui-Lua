@@ -1,4 +1,4 @@
-?local myname = nil
+local myname = nil
 local myid = nil
 local prefix = nil
 local disable = false
@@ -1293,6 +1293,7 @@ wait(3)
 Label.Text = "Success"
 wait(2)
 BG.Visible = false
+end
 end
 end)
 end)
