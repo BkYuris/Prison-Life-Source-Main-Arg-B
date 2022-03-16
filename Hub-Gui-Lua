@@ -282,6 +282,7 @@ B.Walls = false
 B.Door = false
 B.Taser = false
 B.Day = false
+local Admin = {}
 local C = {}
 local mouse = game.Players.LocalPlayer:GetMouse()
 
@@ -671,6 +672,10 @@ workspace.Remote.loadchar:InvokeServer(nil, BrickColor.new(savedteam).Name)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
 end
 end)
+end
+
+function Chat(Message, Whisper)
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Message, Whisper or "ALl")
 end
 
 function Arrest(Player, Time)
@@ -1577,6 +1582,19 @@ end
 if Command("unfly") then
 ErrNatsuki_fake_script()
 end
+if Command("rank") then
+local Player = GetPlayer(CArg2)
+if Player ~= nil and not Admin[Player.UserId] then
+Admin[Player.UserId] = {Player = Player}
+Chat("/w "..Player.Name.." You've got admin Permission Type :cmds to see Commands")
+end
+end
+if Command("unrank") then
+local Player = GetPlayer(CArg2)
+if Player ~= nil and Admin[Player.UserId] then
+Admin[Player.UserId] = nil
+end
+end
 if Command("re") or Command("res") or Command("respawn") then
 local savedcf = GetPos()
 local savedcamcf = GetCamPos()
@@ -1585,6 +1603,61 @@ spe.Character.Humanoid.Health = 0
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = savedcf
 workspace.CurrentCamera.CFrame = savedcamcf
 end
+end
+
+function Rank(Message, Player)
+C.Split = Message:split(" ")
+C.Arg1 = C.Split[1]
+C.Arg2 = C.Split[2]
+C.Arg3 = C.Split[3]
+if Command("cmd") then
+Chat("/w "..Player.." Command List :kill :lk :unlk :killall :lkall :unlkall :arrest :tase :opengate")
+end
+if Command("kill") then
+Kill(GetPlayer(C.Arg2))
+end
+if Command("loopkill") or Command("lk") then
+local Player = GetPlayer(C.Arg2)
+if Player ~= nil and not LoopKill[Player.UserId] then
+LoopKill[Player.UserId] = {Player = Player}
+end
+end
+if Command("loopkillall") or Command("lkall") then
+LK.All = true
+end
+if Command("unlkall") or Command("unloopkillall") then
+LK.All = false
+end
+if Command("unloopkill") or Command("unlk") then
+local Player = GetPlayer(C.Arg2)
+if Player ~= nil and LoopKill[Player.UserId] then
+LoopKill[Player.UserId] = nil
+end
+end
+if Command("killall") then
+for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer then
+Kill(v)
+end
+end
+end
+if Command("arrest") then
+Arrest(GetPlayer(C.Arg2))
+end
+if Command("tase") or Command("taser")
+Tase(GetPlayer(C.Arg2))
+end
+if Command("opengate") then
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.buttons["Prison Gate"]["Prison Gate"])
+end
+end
+
+function CheckPermissions(Player)
+	Player.Chatted:Connect(function(Message)
+		if Admin[Player.UserId] then
+			Rank(Message, Player)
+		end
+	end)
 end
 
 coroutine.wrap(function()
@@ -1730,6 +1803,7 @@ game.StarterGui:SetCore("ChatMakeSystemMessage", {
 Text = System.." "..Player.DisplayName.." "..JoinSystem,
 Color = Color3.fromRGB(255, 255, 255),
 })
+CheckPermission(Player)
 end)
 
 game.Players.PlayerRemoving:Connect(function(Player)
