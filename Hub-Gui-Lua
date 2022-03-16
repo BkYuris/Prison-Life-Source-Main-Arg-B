@@ -1516,11 +1516,9 @@ if Command("ungod") then
 God = false
 end
 if Command("fly") then
-flying = true
 ErrNatsuki_fake_script()
 end
 if Command("unfly") then
-flying = false
 ErrNatsuki_fake_script()
 end
 if Command("re") or Command("res") or Command("respawn") then
