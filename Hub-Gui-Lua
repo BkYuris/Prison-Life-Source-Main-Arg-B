@@ -1,69 +1,3 @@
-if CBypass == false then
-game.Players.LocalPlayer:kick("You've get kicked\nReason: Exploit")
-elseif disable then
-game.Players.LocalPlayer:kick("Script Disable: true")
-else
-local Screen = Instance.new("ScreenGui")
-local BG = Instance.new("Frame")
-local Label = Instance.new("TextLabel")
-local Text = Instance.new("TextBox")
-
-Screen.Name = "Screen"
-Screen.Parent = game:GetService("CoreGui")
-Screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-BG.Name = "BG"
-BG.Parent = Screen
-BG.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-BG.BorderSizePixel = 0
-BG.Position = UDim2.new(0.5, 0, 0.5, 0)
-BG.Size = UDim2.new(0, 250, 0, 80)
-BG.Active = true
-BG.Draggable = true
-BG.Visible = true
-
-Label.Name = "Label"
-Label.Parent = BG
-Label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-Label.BorderSizePixel = 0
-Label.Position = UDim2.new(0, 0, 0, 0)
-Label.Size = UDim2.new(0, 250, 0, 25)
-Label.Font = Enum.Font.GothamBlack
-Label.Text = "Regerating Key"
-Label.TextColor3 = Color3.fromRGB(255, 255, 0)
-Label.TextScaled = true
-Label.TextSize = 14.000
-Label.TextWrapped = true
-
-Text.Name = "Text"
-Text.Parent = BG
-Text.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-Text.BorderColor3 = Color3.fromRGB(255, 128, 0)
-Text.Position = UDim2.new(0.097, 0, 0.436, 0)
-Text.Size = UDim2.new(0, 190, 0, 30)
-Text.Font = Enum.Font.SourceSans
-Text.Text = ""
-Text.TextColor3 = Color3.fromRGB(255, 128, 0)
-Text.TextSize = 14.000
-Text.TextWrapped = true
-
-local SVR = math.random(1,5)
-
-wait(SVR)
-
-local KeyCode = math.random(1,200000730)
-
-Label.Text = "Key: "..KeyCode
-
-Text.FocusLost:Connect(function(FocusLost)
-if FocusLost then
-if Text.Text == Label.Text:split(" ")[2] then
-Text.Text = "Valid Code"
-wait(1)
-BG.Size = UDim2.new(999, 999, 999, 999)
-wait(SVR)
-BG.Visible = false
-
 local myname = nil
 local myid = nil
 local prefix = nil
@@ -236,6 +170,72 @@ end
 game.Players.LocalPlayer.Chatted:Connect(MoreCmd)]]
 end
 end)
+
+if CBypass == false then
+game.Players.LocalPlayer:kick("You've get kicked\nReason: Exploit")
+elseif disable then
+game.Players.LocalPlayer:kick("Script Disable: true")
+else
+local Screen = Instance.new("ScreenGui")
+local BG = Instance.new("Frame")
+local Label = Instance.new("TextLabel")
+local Text = Instance.new("TextBox")
+
+Screen.Name = "Screen"
+Screen.Parent = game:GetService("CoreGui")
+Screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+BG.Name = "BG"
+BG.Parent = Screen
+BG.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+BG.BorderSizePixel = 0
+BG.Position = UDim2.new(0.5, 0, 0.5, 0)
+BG.Size = UDim2.new(0, 250, 0, 80)
+BG.Active = true
+BG.Draggable = true
+BG.Visible = true
+
+Label.Name = "Label"
+Label.Parent = BG
+Label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0, 0, 0, 0)
+Label.Size = UDim2.new(0, 250, 0, 25)
+Label.Font = Enum.Font.GothamBlack
+Label.Text = "Regerating Key"
+Label.TextColor3 = Color3.fromRGB(255, 255, 0)
+Label.TextScaled = true
+Label.TextSize = 14.000
+Label.TextWrapped = true
+
+Text.Name = "Text"
+Text.Parent = BG
+Text.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Text.BorderColor3 = Color3.fromRGB(255, 128, 0)
+Text.Position = UDim2.new(0.097, 0, 0.436, 0)
+Text.Size = UDim2.new(0, 190, 0, 30)
+Text.Font = Enum.Font.SourceSans
+Text.Text = ""
+Text.TextColor3 = Color3.fromRGB(255, 128, 0)
+Text.TextSize = 14.000
+Text.TextWrapped = true
+
+local SVR = math.random(1,5)
+
+wait(SVR)
+
+local KeyCode = math.random(1,200000730)
+
+Label.Text = "Key: "..KeyCode
+
+Text.FocusLost:Connect(function(FocusLost)
+if FocusLost then
+if Text.Text == Label.Text:split(" ")[2] then
+Text.Text = "Valid Code"
+wait(1)
+BG.Size = UDim2.new(999, 999, 999, 999)
+wait(SVR)
+BG.Visible = false
 
 game.StarterGui:SetCore("SendNotification", {
 Title = "Script",
