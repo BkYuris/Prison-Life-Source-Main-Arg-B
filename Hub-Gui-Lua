@@ -1652,7 +1652,7 @@ workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.buttons["Prison
 end
 end
 
-function CheckPermissions(Player)
+function Ck(Player)
 	Player.Chatted:Connect(function(Message)
 		if Admin[Player.UserId] then
 			Rank(Message, Player)
@@ -1803,7 +1803,7 @@ game.StarterGui:SetCore("ChatMakeSystemMessage", {
 Text = System.." "..Player.DisplayName.." "..JoinSystem,
 Color = Color3.fromRGB(255, 255, 255),
 })
-CheckPermission(Player)
+Ck(Player)
 end)
 
 game.Players.PlayerRemoving:Connect(function(Player)
