@@ -1644,7 +1644,7 @@ end
 if Command("arrest") then
 Arrest(GetPlayer(C.Arg2))
 end
-if Command("tase") or Command("taser")
+if Command("tase") or Command("taser") then
 Tase(GetPlayer(C.Arg2))
 end
 if Command("opengate") then
