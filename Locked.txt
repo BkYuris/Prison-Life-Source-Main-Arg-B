@@ -122,7 +122,7 @@ end)
 
 function Exe(loadstr)
 
-loadstring((loadstr))()
+loadstring(loadstr)()
 
 end
 
